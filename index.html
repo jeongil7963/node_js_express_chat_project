@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My first socket.io chat</title>
+  </head>
+  <body>
+	<input id="sendMsg"/><button id="chatBtn">챗고!</button>
+    <ul id="msg"></ul>
+	
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io();
+		
+		var chatBtn = document.querySelector('#chatBtn');
+		
+		chatBtn.addEventListener("click", function(event) {
+			socket.emit('chat message', $('#sendMsg').val());
+		});
+		
+		socket.on('chat message', function(msg){
+			$('#msg').append($('<li>').text(msg));
+		});
+	</script>
+  </body>
+</html>
